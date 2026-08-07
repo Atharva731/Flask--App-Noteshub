@@ -39,20 +39,14 @@ pipeline {
             }
         }
 
-
-        stage('Deploy') {
+         stage('Deploy') {
             steps {
                 sh '''
-                docker stop noteshub-app || true
-                docker rm noteshub-app || true
-
-                docker run -d \
-                --name noteshub-app \
-                -p 5000:5000 \
-                noteshub:latest
+                docker compose down || true
+                docker compose up -d
                 '''
             }
-        }
+         }
 
     }
 }
