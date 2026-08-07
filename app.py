@@ -4,13 +4,22 @@ import MySQLdb
 app = Flask(__name__)
 
 # Database Connection
-db = MySQLdb.connect(
-    host="mysql",
-    user="noteshub",
-    passwd="password123",
-    db="noteshub"
-)
+import time
 
+while True:
+    try:
+        db = MySQLdb.connect(
+            host="mysql",
+            user="noteshub",
+            passwd="password123",
+            db="noteshub"
+        )
+        print("Database connected")
+        break
+
+    except MySQLdb.OperationalError:
+        print("Waiting for database...")
+        time.sleep(5)
 cursor = db.cursor()
 
 # Create table if it doesn't exist

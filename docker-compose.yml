@@ -1,26 +1,44 @@
+version: "3.8"
+
 services:
 
   mysql:
-    image: mysql:8.0
-    container_name: noteshub-db
-    restart: always
+    image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: noteshub
       MYSQL_USER: noteshub
       MYSQL_PASSWORD: password123
-    volumes:
-      - mysql_data:/var/lib/mysql
 
-  flask:
-    build: .
-    container_name: noteshub-app
-    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+    networks:
+      - noteshub-network
+
+
+  app:
+    image: noteshub:latest
+
     ports:
       - "5000:5000"
+
     depends_on:
       - mysql
 
-volumes:
-  mysql_data:
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: noteshub
+      MYSQL_PASSWORD: password123
+      MYSQL_DB: noteshub
 
+    networks:
+      - noteshub-network
+
+
+volumes:
+  mysql-data:
+
+
+networks:
+  noteshub-network:
