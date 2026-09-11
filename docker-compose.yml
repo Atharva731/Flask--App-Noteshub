@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
 
   mysql:
@@ -9,36 +7,28 @@ services:
       MYSQL_DATABASE: noteshub
       MYSQL_USER: noteshub
       MYSQL_PASSWORD: password123
-
     volumes:
       - mysql-data:/var/lib/mysql
-
     networks:
       - noteshub-network
 
-
   app:
+    build: .
     image: noteshub:latest
-
     ports:
       - "5000:5000"
-
     depends_on:
       - mysql
-
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: noteshub
       MYSQL_PASSWORD: password123
       MYSQL_DB: noteshub
-
     networks:
       - noteshub-network
 
-
 volumes:
   mysql-data:
-
 
 networks:
   noteshub-network:
