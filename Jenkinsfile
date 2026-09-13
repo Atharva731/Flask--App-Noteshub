@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     stages {
 
         stage('Checkout') {
@@ -9,7 +13,6 @@ pipeline {
                 checkout scm
             }
         }
-
 
         stage('Install Dependencies') {
             steps {
@@ -21,7 +24,6 @@ pipeline {
             }
         }
 
-
         stage('Test') {
             steps {
                 sh '''
@@ -29,7 +31,6 @@ pipeline {
                 '''
             }
         }
-
 
         stage('Docker Build') {
             steps {
@@ -39,14 +40,13 @@ pipeline {
             }
         }
 
-         stage('Deploy') {
+        stage('Deploy') {
             steps {
                 sh '''
                 docker compose down || true
                 docker compose up -d
                 '''
             }
-         }
-
+        }
     }
 }
