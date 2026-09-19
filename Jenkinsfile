@@ -8,7 +8,7 @@ pipeline {
        stage("Code clone"){
             steps{
                 sh "whoami"
-            clone("https://github.com/")
+            clone("https://github.com/Atharva731/Flask--App-Noteshub.git")
             }
         }
         
