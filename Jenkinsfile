@@ -2,28 +2,16 @@ pipeline {
 
     agent any
 
-    options {
-        skipDefaultCheckout(true)
-    }
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
+       stage("Code clone"){
+            steps{
+                sh "whoami"
+            clone("https://github.com/")
             }
         }
-
-        stage('Install Dependencies') {
-            steps {
-                sh '''
-                python3 -m venv venv
-                venv/bin/pip install --upgrade pip
-                venv/bin/pip install -r requirements.txt
-                '''
-            }
-        }
-
+        
         stage('Test') {
             steps {
                 sh '''
