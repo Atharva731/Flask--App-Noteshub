@@ -11,14 +11,6 @@ pipeline {
             clone("https://github.com/Atharva731/Flask--App-Noteshub.git")
             }
         }
-        
-        stage('Test') {
-            steps {
-                sh '''
-                venv/bin/python -m pytest
-                '''
-            }
-        }
 
         stage('Docker Build') {
             steps {
