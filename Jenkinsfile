@@ -5,13 +5,14 @@ pipeline {
 
     stages {
 
-       stage("Code clone"){
+      stage("Code Clone"){
             steps{
-                sh "whoami"
-            clone("https://github.com/Atharva731/Flask--App-Noteshub.git")
+               script{
+                   clone("https://github.com/Atharva731/Flask--App-Noteshub.git", "master")
+               }
             }
         }
-
+        
         stage('Docker Build') {
             steps {
                 sh '''
